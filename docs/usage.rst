@@ -20,10 +20,8 @@ Result:
 
 .. code-block:: html
 
-   <pre><span></span><span class="o">&lt;</span><span class="n">pre</span> <span class="n">class</span><span class="o">=</span><span class="s2">"python"</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span>
-      <span class="k">print</span><span class="p">(</span><span class="s1">'Hello, world!'</span><span class="p">)</span>
-   <span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
-   </pre>
+   <div class="highlight"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="s2">&quot;Hello, world!&quot;</span><span class="p">)</span>
+   </pre></div>
 
 The ``{% pygmentify %}`` template tag expects an opening ``<pre>`` tag with a ``class`` attribute of the programming language that you are using. `Python <http://pygments.org/docs/lexers/#pygments.lexers.python.PythonLexer>`_ expects ``<pre class="python">``, and `HTML <http://pygments.org/docs/lexers/#pygments.lexers.html.HtmlLexer>`_ expects ``<pre class="html">``.
 
@@ -44,7 +42,7 @@ Result:
 
 .. code-block:: html
 
-   <link rel="stylesheet" href="http://127.0.0.1:8000/static/pygmentize/css/default.min.css">
+   <link rel="stylesheet" href="/static/css/default.min.css">
 
 The way that Pygments generates CSS is awkward. Rather than provide CSS files, Pygments abstracts a more generalized style language into `Python classes to create styles <http://pygments.org/docs/styles/>`_ that can be used with formatters other than HTML. Therefore, the template tag provides exports of the default styles (using |pygmentize|_) and their respective minified versions (using |cleancss|_).
 
