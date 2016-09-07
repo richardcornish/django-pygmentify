@@ -16,7 +16,6 @@ class PygmentifyTestCase(TestCase):
             "</pre>"
             "{% endfilter %}"
         ).render(Context())
-        print(out)
         self.assertEqual(out, '<div class="highlight"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="s2">&quot;Hello, world!&quot;</span><span class="p">)</span>\n</pre></div>\n')
 
     def test_pygmentify_css(self):
@@ -24,5 +23,4 @@ class PygmentifyTestCase(TestCase):
             "{% load pygmentify_tags %}"
             "{% pygmentify_css %}"
         ).render(Context())
-        print(out)
         self.assertEqual(out, '/static/css/default.min.css')

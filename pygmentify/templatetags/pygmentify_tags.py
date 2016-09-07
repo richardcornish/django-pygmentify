@@ -11,9 +11,9 @@ from pygments.formatters import HtmlFormatter
 from pygments.lexers import get_lexer_by_name, guess_lexer
 from pygments.util import ClassNotFound
 
-register = template.Library()
-
 from pygmentify import settings
+
+register = template.Library()
 
 
 @register.simple_tag
@@ -42,7 +42,7 @@ def pygmentify(value, arg=''):
     except IndexError:
         cssclass = settings.PYGMENTIFY_CSSCLASS
 
-    soup = BeautifulSoup(value, "html.parser")
+    soup = BeautifulSoup(value, 'html.parser')
     for pre in soup.find_all('pre'):
         try:
             language = pre['class'][0].replace('language-', '', 1)
