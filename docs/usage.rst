@@ -12,7 +12,7 @@ Use the ``{% pygmentify %}`` template tag to covert HTML into Pygments HTML.
 
    {% pygmentify %}
    <pre class="python"><code>
-       print('Hello, world!')
+   print('Hello, world!')
    </code></pre>
    {% endpygmentify %}
 
@@ -20,14 +20,16 @@ Result:
 
 .. code-block:: html
 
-   <div class="highlight"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="s2">&quot;Hello, world!&quot;</span><span class="p">)</span>
-   </pre></div>
+   <div class="highlight"><pre class="python"><code><span></span><span class="k">print</span><span class="p">(</span><span class="s2">&quot;Hello, world!&quot;</span><span class="p">)</span>
+   </code></pre></div>
 
-The ``{% pygmentify %}`` template tag expects an opening ``<pre>`` tag with a ``class`` attribute of the programming language that you are using. `Python <http://pygments.org/docs/lexers/#pygments.lexers.python.PythonLexer>`_ expects ``<pre class="python">``, and `HTML <http://pygments.org/docs/lexers/#pygments.lexers.html.HtmlLexer>`_ expects ``<pre class="html">``.
+The ``{% pygmentify %}`` template tag expects an opening ``<pre>`` tag with a ``class`` attribute of the programming language that you are using. For example, ``<pre class="python">`` uses `Python <http://pygments.org/docs/lexers/#pygments.lexers.python.PythonLexer>`_, and ``<pre class="html">`` uses `HTML <http://pygments.org/docs/lexers/#pygments.lexers.html.HtmlLexer>`_.
 
-If no CSS class is specified, the template tag makes a best guess using heuristics of the code inside of the ``<pre>`` element. If multiple CSS classes are specified, the first one is selected. The template tag also finds a possible ``language-`` prefix that could be prepended to the first class.
+If no CSS class is specified, the template tag makes a best guess using heuristics of the code inside of the ``<pre>`` element. If multiple CSS classes are specified, the first one is selected. The template tag also strips a possible ``language-`` prefix that could be prepended to the first class.
 
-Consult the `Pygments documentation <http://pygments.org/docs/lexers/>`_ for all lexers with corresponding languages. There's even a `Django <http://pygments.org/docs/lexers/#pygments.lexers.templates.DjangoLexer>`_ template one.
+Pygments's default behavior strips your customized ``<pre class="...">`` tag and replaces it with a plain ``<pre>`` tag. The template tag undoes this unacceptable behavior and preserves the customized ``<pre class="...">`` tag. Additionally, the inner contents of the ``<pre class="...">`` are wrapped in a semantic ``<code>`` element if no ``code`` tags are present.
+
+Consult the `Pygments documentation <http://pygments.org/docs/lexers/>`_ for all language short names. There's even a `Django <http://pygments.org/docs/lexers/#pygments.lexers.templates.DjangoLexer>`_ template one.
 
 CSS
 ===

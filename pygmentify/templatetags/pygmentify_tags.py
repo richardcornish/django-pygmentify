@@ -4,6 +4,7 @@ from django import template
 from django.contrib.staticfiles.storage import staticfiles_storage
 from django.utils.encoding import force_text
 from django.template import TemplateSyntaxError
+from django.utils.html import escape
 
 from bs4 import BeautifulSoup
 from pygments import highlight
@@ -49,10 +50,17 @@ def pygmentify(value, arg=''):
             try:
                 lexer = get_lexer_by_name(language, stripall=True)
             except ClassNotFound:
-                lexer = guess_lexer(pre)
+                lexer = guess_lexer(pre, stripall=True)
         except IndexError:
-            lexer = guess_lexer(pre)
+            lexer = guess_lexer(pre, stripall=True)
         formatter = HtmlFormatter(style=style, cssclass=cssclass)
-        pre.replace_with(highlight(pre.string, lexer, formatter))
+        pygments_soup = BeautifulSoup(highlight(pre.string, lexer, formatter), 'html.parser')
+        pre.clear()
+        pre.append(soup.new_tag('code'))
+        for content in reversed(pygments_soup.pre.contents):
+            if content.string is not None:
+                content.string.replace_with(escape(content.string))
+            pre.code.insert(0, content)
+        pre.wrap(soup.new_tag('div', **{'class': cssclass}))
 
     return force_text(soup.encode(formatter=None))

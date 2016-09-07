@@ -46,7 +46,14 @@ Usage
    <link rel="stylesheet" href="{% pygmentify_css %}">
    
    {% pygmentify %}
-   <pre class="python">
-       print('Hello, world!')
-   </pre>
+   <pre class="python"><code>
+   print('Hello, world!')
+   </code></pre>
    {% endpygmentify %}
+
+Result:
+
+.. code-block:: html
+
+   <div class="highlight"><pre class="python"><code><span></span><span class="k">print</span><span class="p">(</span><span class="s2">&quot;Hello, world!&quot;</span><span class="p">)</span>
+   </code></pre></div>

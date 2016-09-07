@@ -16,7 +16,8 @@ class PygmentifyTestCase(TestCase):
             "</pre>"
             "{% endfilter %}"
         ).render(Context())
-        self.assertEqual(out, '<div class="highlight"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="s2">&quot;Hello, world!&quot;</span><span class="p">)</span>\n</pre></div>\n')
+        print(out)
+        self.assertEqual(out, '<div class="highlight"><pre class="python"><code><span></span><span class="k">print</span><span class="p">(</span><span class="s2">&quot;Hello, world!&quot;</span><span class="p">)</span>\n</code></pre></div>')
 
     def test_pygmentify_css(self):
         out = Template(
