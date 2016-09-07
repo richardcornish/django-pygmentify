@@ -15,32 +15,34 @@ The template tag offers two settings. By default, they are:
 
 ``PYGMENTS_STYLE`` is a string of the `Pygments style class <http://pygments.org/docs/styles/>`_ to use. The up-to-date list of styles is in the `Pygments repository <https://bitbucket.org/birkenfeld/pygments-main/src/a042025b350cd9c9461f7385d9ba0f13cdb01bb9/pygments/styles/__init__.py?at=default&fileviewer=file-view-default>`_, but generally speaking, the styles from which to choose are:
 
-- ``murphy``
-- ``borland``
-- ``paraiso-light``
+- ``algol_nu``
+- ``algol``
 - ``autumn``
-- ``emacs``
-- ``rrt``
-- ``monokai``
-- ``fruity``
-- ``paraiso-dark``
-- ``vs``
-- ``perldoc``
-- ``xcode``
-- ``lovelace``
+- ``borland``
 - ``bw``
+- ``colorful``
+- ``default``
+- ``emacs``
+- ``friendly``
+- ``fruity``
+- ``igor``
+- ``lovelace``
+- ``manni``
+- ``monokai``
+- ``murphy``
+- ``native``
+- ``paraiso-dark``
+- ``paraiso-light``
+- ``pastie``
+- ``perldoc``
+- ``rrt``
+- ``tango``
 - ``trac``
 - ``vim``
-- ``colorful``
-- ``native``
-- ``tango``
-- ``friendly``
-- ``pastie``
-- ``manni``
-- ``default``
-- ``algol``
-- ``igor``
-- ``algol_nu``
+- ``vs``
+- ``xcode``
+
+Preview these styles by visiting any of the Pygments `demo entries <http://pygments.org/demo/>`_.
 
 By setting ``PYGMENTS_STYLE`` once, the template tag automatically sets the correct Pygments HTML output *and* corresponding CSS to use.
 
