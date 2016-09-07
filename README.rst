@@ -11,7 +11,7 @@ Django Pygmentify
    https://travis-ci.org/richardcornish/django-pygmentify.svg?branch=master
 .. _Build status: https://travis-ci.org/richardcornish/django-pygmentify
 
-**Django Pygmentify** is a `Django template filter <https://docs.djangoproject.com/en/1.10/howto/custom-template-tags/>`_ application for highlighting code with `Pygments <http://pygments.org/>`_ in templates.
+**Django Pygmentify** is a `Django template filter <https://docs.djangoproject.com/en/1.10/howto/custom-template-tags/>`_ application to highlight code with `Pygments <http://pygments.org/>`_.
 
 It is an alternative to `Django Pygments <https://github.com/od-eon/django-pygments>`_, which hasn't been updated in several years.
 
