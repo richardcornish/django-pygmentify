@@ -6,6 +6,12 @@ Usage
 HTML
 ====
 
+Load the template tag.
+
+.. code-block:: html
+
+   {% load pygmentify_tags %}
+
 Use the ``{% pygmentify %}`` template tag to covert HTML into Pygments HTML.
 
 .. code-block:: html
