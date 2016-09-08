@@ -31,7 +31,7 @@ Result:
 
 The ``{% pygmentify %}`` template tag expects an opening ``<pre>`` tag with a ``class`` attribute of the programming language that you are using. For example, ``<pre class="python">`` uses `Python <http://pygments.org/docs/lexers/#pygments.lexers.python.PythonLexer>`_, and ``<pre class="html">`` uses `HTML <http://pygments.org/docs/lexers/#pygments.lexers.html.HtmlLexer>`_.
 
-If no CSS class is specified, the template tag makes a best guess using heuristics of the code inside of the ``<pre>`` element. If multiple CSS classes are specified, the first one is selected. The template tag also strips a possible ``language-`` prefix that could be prepended to the first class.
+If no CSS class is specified, the template tag makes a `best guess <http://pygments.org/docs/api/#pygments.lexers.guess_lexer>`_ using heuristics of the code inside of the ``<pre>`` element. If multiple CSS classes are specified, the first one is selected. The template tag also strips a possible ``language-`` prefix that could be prepended to the first class.
 
 Pygments's default behavior strips your customized ``<pre class="...">`` tag and replaces it with a plain ``<pre>`` tag. The template tag undoes this unacceptable behavior and preserves the customized ``<pre class="...">`` tag. Additionally, the inner contents of the ``<pre class="...">`` are wrapped in a semantic ``<code>`` element if no ``code`` tags are present.
 
@@ -73,7 +73,7 @@ Examples
 
    {% pygmentify %}
    <pre class="python"><code>
-       print('Hello, world!')
+   print('Hello, world!')
    </code></pre>
    {% endpygmentify %}
 
@@ -85,14 +85,22 @@ Customize the behavior by passing the name of a style into the ``{% pygmentify_c
 
    <link rel="stylesheet" href="{% pygmentify_css 'monokai' %}">
 
-   {{ post.body|pygmentify:'monokai' }}
+   {% pygmentify:'monokai' %}
+   <pre class="python"><code>
+   print('Hello, world!')
+   </code></pre>
+   {% endpygmentify %}
 
-Additionally customize the CSS class of the ``<div>`` that wraps the highlighted code by passing a second argument to the ``{% pygmentify %}`` filter.
+Additionally customize the CSS class of the ``<div>`` that wraps the highlighted code by passing a second positional argument to the ``{% pygmentify %}`` filter.
 
 .. code-block:: html
 
-   {{ post.body|pygmentify:"monokai,bettercssclass" }}
+   {% pygmentify:'monokai,bettercssclass' %}
+   <pre class="python"><code>
+   print('Hello, world!')
+   </code></pre>
+   {% endpygmentify %}
 
-If you use the pipe (``|``) syntax on a context variable, ensure that the variable contains HTML either natively or by conversion (by, say `Markdown <https://pythonhosted.org/Markdown/>`_) because the template tag will look for the HTML outlined earlier.
+If you customize the style, please ensure you pass the same argument, e.g. ``'monokai'``, to *both* the ``{% pygmentify_css %}`` and ``{% pygmentify %}`` tags. You might see unexpected behavior otherwise because "not all lexers might support every style <http://pygments.org/docs/styles/>"_, meaning styles are guaranteed to work only when the lexer properly maps tokens to corresponding CSS classes. Therefore, you're probably better off customizing the behavior by changing the :ref:`settings` of the project; however, the template tag is flexible on a per-template basis. Template tag arguments take precedence over settings. Also see :ref:`settings` for creating your own styles.
 
-Bear in mind that you're probably better off customizing the behavior by changing the :ref:`settings` of the project, but the template tag is flexible too. Template tag arguments take precedence over settings.
+If you use the `pipe <https://docs.djangoproject.com/en/1.10/ref/templates/language/#filters>`_ (``|``) syntax on a context variable, ensure that the variable contains HTML either natively or by conversion (by, say `Markdown <https://pythonhosted.org/Markdown/>`_) because the template tag will look for the HTML outlined earlier.
