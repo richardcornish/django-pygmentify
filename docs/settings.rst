@@ -46,4 +46,6 @@ Preview these styles by visiting any of the Pygments `demo entries <http://pygme
 
 By setting ``PYGMENTIFY_STYLE`` once, the template tag automatically sets the correct Pygments HTML output *and* corresponding CSS to use.
 
-Both of these settings are available on a per-template basis. See examples in :ref:`Usage` for details.
+Both of these settings are also available on a per-template basis. See examples in :ref:`Usage` for details.
+
+If you want to `create your own style <http://pygments.org/docs/styles/#creating-own-styles>`_, follow the Pygments documentation by creating a ``Style`` class, registering it as a plugin, and passing its ``name`` attribute to the ``PYGMENTIFY_STYLE`` setting.
