@@ -14,11 +14,11 @@ Django Pygmentify
    https://travis-ci.org/richardcornish/django-pygmentify.svg?branch=master
 .. _Build status: https://travis-ci.org/richardcornish/django-pygmentify
 
+|Demo|_
+
 .. |Demo| image::
    https://raw.githubusercontent.com/richardcornish/django-pygmentify/master/pygmentify/static/pygmentify/img/screenshot.min.png
 .. _Demo: https://djangopygmentifydemo.herokuapp.com/
-
-
 
 **Django Pygmentify** is a `Django template filter <https://docs.djangoproject.com/en/1.10/howto/custom-template-tags/>`_ application to highlight code with `Pygments <http://pygments.org/>`_.
 
