@@ -6,17 +6,17 @@ Usage
 HTML
 ====
 
-Load the template tag.
+Load the template tags.
 
 .. code-block:: html
 
    {% load pygmentify_tags %}
 
-Use the ``{% pygmentify %}`` template tag to covert HTML into Pygments HTML.
+Use the ``{% filter pygmentify %}`` template tag to covert HTML into Pygments HTML.
 
 .. code-block:: html
 
-   {% pygmentify %}
+   {% filter pygmentify %}
    <pre class="python"><code>
    print('Hello, world!')
    </code></pre>
@@ -29,7 +29,7 @@ Result:
    <div class="highlight"><pre class="python"><code><span></span><span class="k">print</span><span class="p">(</span><span class="s2">&quot;Hello, world!&quot;</span><span class="p">)</span>
    </code></pre></div>
 
-The ``{% pygmentify %}`` template tag expects an opening ``<pre>`` tag with a ``class`` attribute of the programming language that you are using. For example, ``<pre class="python">`` uses `Python <http://pygments.org/docs/lexers/#pygments.lexers.python.PythonLexer>`_, and ``<pre class="html">`` uses `HTML <http://pygments.org/docs/lexers/#pygments.lexers.html.HtmlLexer>`_.
+The ``{% filter pygmentify %}`` template tag expects an opening ``<pre>`` tag with a ``class`` attribute of the programming language that you are using. For example, ``<pre class="python">`` uses `Python <http://pygments.org/docs/lexers/#pygments.lexers.python.PythonLexer>`_, and ``<pre class="html">`` uses `HTML <http://pygments.org/docs/lexers/#pygments.lexers.html.HtmlLexer>`_.
 
 If no CSS class is specified, the template tag makes a `best guess <http://pygments.org/docs/api/#pygments.lexers.guess_lexer>`_ using heuristics of the code inside of the ``<pre>`` element. If multiple CSS classes are specified, the first one is selected. The template tag also strips a possible ``language-`` prefix that could be prepended to the first class.
 
@@ -71,13 +71,13 @@ Examples
 
    <link rel="stylesheet" href="{% pygmentify_css %}">
 
-   {% pygmentify %}
+   {% filter pygmentify %}
    <pre class="python"><code>
    print('Hello, world!')
    </code></pre>
    {% endpygmentify %}
 
-Customize the behavior by passing the name of a style into the ``{% pygmentify_css %}`` tag and into the ``{% pygmentify %}`` filter.
+Customize the behavior by passing the name of a style into the ``{% pygmentify_css %}`` tag and into the ``{% filter pygmentify %}`` filter.
 
 .. code-block:: html
 
@@ -85,22 +85,22 @@ Customize the behavior by passing the name of a style into the ``{% pygmentify_c
 
    <link rel="stylesheet" href="{% pygmentify_css 'monokai' %}">
 
-   {% pygmentify:'monokai' %}
+   {% filter pygmentify:'monokai' %}
    <pre class="python"><code>
    print('Hello, world!')
    </code></pre>
    {% endpygmentify %}
 
-Additionally customize the CSS class of the ``<div>`` that wraps the highlighted code by passing a second positional argument to the ``{% pygmentify %}`` filter.
+Additionally customize the CSS class of the ``<div>`` that wraps the highlighted code by passing a second positional argument to ``{% filter pygmentify %}``.
 
 .. code-block:: html
 
-   {% pygmentify:'monokai,bettercssclass' %}
+   {% filter pygmentify:'monokai,bettercssclass' %}
    <pre class="python"><code>
    print('Hello, world!')
    </code></pre>
    {% endpygmentify %}
 
-If you customize the style, please ensure you pass the same argument, e.g. ``'monokai'``, to *both* the ``{% pygmentify_css %}`` and ``{% pygmentify %}`` tags. You might see unexpected behavior otherwise because "`not all lexers might support every style <http://pygments.org/docs/styles/>`_," meaning styles are guaranteed to work fully only when the lexer assigns to tokens HTML classes that correspond to the class selectors in the CSS file. Therefore, you're probably better off customizing the style by changing the :ref:`settings` of the project. Template tag arguments take precedence over settings. Also see :ref:`settings` for creating your own styles.
+If you customize the style, please ensure you pass the same argument, e.g. ``'monokai'``, to *both* the ``{% pygmentify_css %}`` and ``{% filter pygmentify %}`` tags. You might see unexpected behavior otherwise because "`not all lexers might support every style <http://pygments.org/docs/styles/>`_," meaning styles are guaranteed to work fully only when the lexer assigns to tokens HTML classes that correspond to the class selectors in the CSS file. Therefore, you're probably better off customizing the style by changing the :ref:`settings` of the project. Template tag arguments take precedence over settings. Also see :ref:`settings` for creating your own styles.
 
-If you use the `pipe <https://docs.djangoproject.com/en/1.10/ref/templates/language/#filters>`_, i.e. ``|``, syntax on a context variable, ensure that the variable contains HTML either natively or by conversion (by, say `Markdown <https://pythonhosted.org/Markdown/>`_) because the template tag will look for the HTML outlined earlier.
+If you use the `pipe <https://docs.djangoproject.com/en/1.10/ref/templates/language/#filters>`_, i.e. ``{{ post.body|pygmentify }}``, syntax on a context variable, ensure that the variable contains HTML either natively or by conversion (by, say `Markdown <https://pythonhosted.org/Markdown/>`_) because the template tag will look for the HTML outlined earlier.

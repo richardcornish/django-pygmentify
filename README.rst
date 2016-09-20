@@ -45,7 +45,7 @@ Usage
 
    <link rel="stylesheet" href="{% pygmentify_css %}">
    
-   {% pygmentify %}
+   {% filter pygmentify %}
    <pre class="python"><code>
    print('Hello, world!')
    </code></pre>
