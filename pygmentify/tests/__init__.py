@@ -23,4 +23,4 @@ class PygmentifyTestCase(TestCase):
             "{% load pygmentify_tags %}"
             "{% pygmentify_css %}"
         ).render(Context())
-        self.assertEqual(out, '/static/css/default.min.css')
+        self.assertEqual(out, '/static/pygmentify/css/default.min.css')
