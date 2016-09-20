@@ -26,7 +26,7 @@ def pygmentify_css(*args):
     return staticfiles_storage.url('css/%s.min.css' % arg)
 
 
-@register.filter()
+@register.filter
 def pygmentify(value, arg=''):
     """Return a highlighted code block with Pygments."""
     args_list = [a for a in arg.split(',') if a]
