@@ -50,7 +50,7 @@ Result:
 
 .. code-block:: html
 
-   <link rel="stylesheet" href="/static/css/default.min.css">
+   <link rel="stylesheet" href="/static/pygmentify/css/default.min.css">
 
 The way that Pygments generates CSS is awkward. Rather than provide CSS files, Pygments abstracts a more generalized style language into `Python classes to create styles <http://pygments.org/docs/styles/>`_ that can be used with formatters other than HTML. Therefore, the template tag provides exports of the default styles (using |pygmentize|_) and their respective minified versions (using |cleancss|_).
 
