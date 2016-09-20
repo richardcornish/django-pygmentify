@@ -49,7 +49,7 @@ Usage
    <pre class="python"><code>
    print('Hello, world!')
    </code></pre>
-   {% endpygmentify %}
+   {% endfilter %}
 
 Result:
 

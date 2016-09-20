@@ -20,7 +20,7 @@ Use the ``{% filter pygmentify %}`` template tag to covert HTML into Pygments HT
    <pre class="python"><code>
    print('Hello, world!')
    </code></pre>
-   {% endpygmentify %}
+   {% endfilter %}
 
 Result:
 
@@ -75,7 +75,7 @@ Examples
    <pre class="python"><code>
    print('Hello, world!')
    </code></pre>
-   {% endpygmentify %}
+   {% endfilter %}
 
 Customize the behavior by passing the name of a style into the ``{% pygmentify_css %}`` tag and into the ``{% filter pygmentify %}`` filter.
 
@@ -89,7 +89,7 @@ Customize the behavior by passing the name of a style into the ``{% pygmentify_c
    <pre class="python"><code>
    print('Hello, world!')
    </code></pre>
-   {% endpygmentify %}
+   {% endfilter %}
 
 Additionally customize the CSS class of the ``<div>`` that wraps the highlighted code by passing a second positional argument to ``{% filter pygmentify %}``.
 
@@ -99,7 +99,7 @@ Additionally customize the CSS class of the ``<div>`` that wraps the highlighted
    <pre class="python"><code>
    print('Hello, world!')
    </code></pre>
-   {% endpygmentify %}
+   {% endfilter %}
 
 If you customize the style, please ensure you pass the same argument, e.g. ``'monokai'``, to *both* the ``{% pygmentify_css %}`` and ``{% filter pygmentify %}`` tags. You might see unexpected behavior otherwise because "`not all lexers might support every style <http://pygments.org/docs/styles/>`_," meaning styles are guaranteed to work fully only when the lexer assigns to tokens HTML classes that correspond to the class selectors in the CSS file. Therefore, you're probably better off customizing the style by changing the :ref:`settings` of the project. Template tag arguments take precedence over settings. Also see :ref:`settings` for creating your own styles.
 
