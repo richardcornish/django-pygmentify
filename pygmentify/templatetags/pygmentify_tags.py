@@ -23,7 +23,7 @@ def pygmentify_css(*args):
     if len(args) > 1:
         raise TemplateSyntaxError('"pygmentify_css" tag takes exactly zero or one arguments.')
     arg = args[0] if args else settings.PYGMENTIFY_STYLE
-    return staticfiles_storage.url('css/%s.min.css' % arg)
+    return staticfiles_storage.url('pygmentify/css/%s.min.css' % arg)
 
 
 @register.filter
