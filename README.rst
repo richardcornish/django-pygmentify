@@ -15,7 +15,6 @@ Django Pygmentify
 
 .. |Demo| image::
    https://raw.githubusercontent.com/richardcornish/django-pygmentify/master/pygmentify/static/pygmentify/img/screenshot.min.png
-.. _Demo: https://djangopygmentifydemo.herokuapp.com/
 
 **Django Pygmentify** is a `Django template filter <https://docs.djangoproject.com/en/1.10/howto/custom-template-tags/>`_ application to highlight code with `Pygments <http://pygments.org/>`_.
 
@@ -25,11 +24,6 @@ It is an alternative to `Django Pygments <https://github.com/od-eon/django-pygme
 * `Code repository <https://github.com/richardcornish/django-pygmentify>`_
 * `Documentation <https://django-pygmentify.readthedocs.io/>`_
 * `Tests <https://travis-ci.org/richardcornish/django-pygmentify>`_
-
-An online demo is also available.
-
-* `Code repository <https://github.com/richardcornish/djangopygmentifydemo>`_
-* `Deployed app <https://djangopygmentifydemo.herokuapp.com/>`_
 
 Install
 =======
