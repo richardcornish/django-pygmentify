@@ -10,7 +10,7 @@ However, you can also test the source code.
 .. code-block:: bash
 
    $ workon myvenv
-   $ django-admin.py test pygmentify.tests --settings="pygmentify.tests.settings"
+   $ django-admin test pygmentify.tests --settings="pygmentify.tests.settings"
    
    Creating test database for alias 'default'...
    ..........
