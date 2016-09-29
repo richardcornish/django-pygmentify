@@ -8,13 +8,13 @@ HTML
 
 Load the template tags.
 
-.. code-block:: html
+.. code-block:: django
 
    {% load pygmentify_tags %}
 
 Use the ``{% filter pygmentify %}`` template tag to covert HTML into Pygments HTML.
 
-.. code-block:: html
+.. code-block:: django
 
    {% filter pygmentify %}
    <pre class="python"><code>
@@ -42,7 +42,7 @@ CSS
 
 Use the ``{% pygmentify_css %}`` template tag to output the URL of the CSS file.
 
-.. code-block:: html
+.. code-block:: django
 
    <link rel="stylesheet" href="{% pygmentify_css %}">
 
@@ -65,7 +65,7 @@ Please remember to put the ``<link>`` tag in the ``<head>`` of your document.
 Examples
 ========
 
-.. code-block:: html
+.. code-block:: django
 
    {% load pygmentify_tags %}
 
@@ -79,7 +79,7 @@ Examples
 
 Customize the behavior by passing the name of a style into the ``{% pygmentify_css %}`` tag and into the ``{% filter pygmentify %}`` filter.
 
-.. code-block:: html
+.. code-block:: django
 
    {% load pygmentify_tags %}
 
@@ -93,7 +93,7 @@ Customize the behavior by passing the name of a style into the ``{% pygmentify_c
 
 Additionally customize the CSS class of the ``<div>`` that wraps the highlighted code by passing a second positional argument to ``{% filter pygmentify %}``.
 
-.. code-block:: html
+.. code-block:: django
 
    {% filter pygmentify:'monokai,bettercssclass' %}
    <pre class="python"><code>

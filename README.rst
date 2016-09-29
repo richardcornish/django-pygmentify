@@ -41,12 +41,12 @@ Add to ``settings.py``.
 Usage
 =====
 
-.. code-block:: html
+.. code-block:: django
 
    {% load pygmentify_tags %}
 
    <link rel="stylesheet" href="{% pygmentify_css %}">
-   
+
    {% filter pygmentify %}
    <pre class="python"><code>
    print('Hello, world!')
@@ -56,6 +56,8 @@ Usage
 Result:
 
 .. code-block:: html
+
+   <link rel="stylesheet" href="/static/pygmentify/css/default.min.css">
 
    <div class="highlight"><pre class="python"><code><span></span><span class="k">print</span><span class="p">(</span><span class="s2">&quot;Hello, world!&quot;</span><span class="p">)</span>
    </code></pre></div>
