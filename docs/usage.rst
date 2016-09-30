@@ -52,15 +52,20 @@ Result:
 
    <link rel="stylesheet" href="/static/pygmentify/css/default.min.css">
 
-The way that Pygments generates CSS is awkward. Rather than provide CSS files, Pygments abstracts a more generalized style language into `Python classes to create styles <http://pygments.org/docs/styles/>`_ that can be used with formatters other than HTML. Therefore, the template tag provides exports of the default styles (using |pygmentize|_) and their respective minified versions (using |cleancss|_).
-
-Please remember to put the ``<link>`` tag in the ``<head>`` of your document.
+The way that Pygments generates CSS is awkward. Rather than provide CSS files, Pygments abstracts a more generalized style language into `Python classes to create styles <http://pygments.org/docs/styles/>`_ that can be used with formatters other than HTML. Therefore, the template tag provides exports of the default styles using the |pygmentize|_ command and |cleancss|_ library.
 
 .. |pygmentize| replace:: ``pygmentize``
 .. _pygmentize: http://pygments.org/docs/cmdline/#generating-styles
 
 .. |cleancss| replace:: ``clean-css``
 .. _cleancss: https://www.npmjs.com/package/clean-css
+
+.. code-block:: bash
+
+   pygmentize -S <style> -f html > <style>.css
+   cleancss <style>.css -o <style>-min.css
+
+Please remember to put the ``<link>`` tag in the ``<head>`` of your document.
 
 Examples
 ========
