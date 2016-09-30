@@ -62,8 +62,11 @@ The way that Pygments generates CSS is awkward. Rather than provide CSS files, P
 
 .. code-block:: bash
 
-   pygmentize -S <style> -f html > <style>.css
-   cleancss <style>.css -o <style>-min.css
+   $ pygmentize -S <style> -f html > <style>.css
+
+.. code-block:: bash
+
+   $ cleancss <style>.css -o <style>.min.css
 
 Please remember to put the ``<link>`` tag in the ``<head>`` of your document.
 
