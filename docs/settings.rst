@@ -23,6 +23,7 @@ A string of the `Pygments style class <http://pygments.org/docs/styles/>`_ to us
 
 * ``algol``
 * ``algol_nu``
+* ``arduino``
 * ``autumn``
 * ``borland``
 * ``bw``
