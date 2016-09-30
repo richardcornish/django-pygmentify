@@ -21,8 +21,8 @@ A string of the `CSS class <http://pygments.org/docs/formatters/#HtmlFormatter>`
 
 A string of the `Pygments style class <http://pygments.org/docs/styles/>`_ to use. The up-to-date list of styles is in the `Pygments repository <https://bitbucket.org/birkenfeld/pygments-main/src/a042025b350cd9c9461f7385d9ba0f13cdb01bb9/pygments/styles/__init__.py?at=default&fileviewer=file-view-default>`_, but generally speaking, the styles from which to choose are:
 
-* ``algol_nu``
 * ``algol``
+* ``algol_nu``
 * ``autumn``
 * ``borland``
 * ``bw``
@@ -37,8 +37,8 @@ A string of the `Pygments style class <http://pygments.org/docs/styles/>`_ to us
 * ``monokai``
 * ``murphy``
 * ``native``
-* ``paraiso*dark``
-* ``paraiso*light``
+* ``paraiso-dark``
+* ``paraiso-light``
 * ``pastie``
 * ``perldoc``
 * ``rrt``
