@@ -2,8 +2,8 @@ from __future__ import unicode_literals
 
 from django import template
 from django.contrib.staticfiles.storage import staticfiles_storage
-from django.utils.encoding import force_text
 from django.template import TemplateSyntaxError
+from django.utils.encoding import force_text
 from django.utils.html import escape
 
 from bs4 import BeautifulSoup
