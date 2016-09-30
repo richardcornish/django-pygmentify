@@ -20,4 +20,4 @@ install:
     - pip install -q Django==$DJANGO_VERSION
     - python setup.py -q install
 script:
-    - django-admin.py test pygmentify.tests
+    - django-admin test pygmentify.tests
