@@ -13,7 +13,7 @@ Django Pygmentify
 
 .. image:: https://raw.githubusercontent.com/richardcornish/django-pygmentify/master/docs/_static/img/screenshot.png
 
-**Django Pygmentify** is a `Django template filter <https://docs.djangoproject.com/en/1.10/howto/custom-template-tags/>`_ application to highlight code with `Pygments <http://pygments.org/>`_.
+**Django Pygmentify** is a `Django template tag <https://docs.djangoproject.com/en/1.10/howto/custom-template-tags/>`_ application to highlight code with `Pygments <http://pygments.org/>`_.
 
 It is an alternative to `Django Pygments <https://github.com/od-eon/django-pygments>`_, which hasn't been updated in several years.
 
@@ -47,11 +47,11 @@ Usage
 
    <link rel="stylesheet" href="{% pygmentify_css %}">
 
-   {% filter pygmentify %}
-   <pre class="python"><code>
+   {% pygmentify %}
+   <pre class="python">
    print('Hello, world!')
-   </code></pre>
-   {% endfilter %}
+   </pre>
+   {% endpygmentify %}
 
 Result:
 
@@ -59,5 +59,10 @@ Result:
 
    <link rel="stylesheet" href="/static/pygmentify/css/default.min.css">
 
-   <div class="highlight"><pre class="python"><code><span></span><span class="k">print</span><span class="p">(</span><span class="s2">&quot;Hello, world!&quot;</span><span class="p">)</span>
-   </code></pre></div>
+   <div class="highlight"><pre class="python"><span></span><span class="k">print</span><span class="p">(</span><span class="s2">&quot;Hello, world!&quot;</span><span class="p">)</span>
+   </pre></div>
+
+Upgrading
+=========
+
+Please note that the syntax for Django Pygmentify changed in version 0.3.0 from a template filter, i.e. ``{% filter pygmentify %}`` to a more robust template tag, i.e. ``{% pygmentify %}``. Consult the `documentation <https://django-pygmentify.readthedocs.io/>`_ for changes in syntax.

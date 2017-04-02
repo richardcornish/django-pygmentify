@@ -12,28 +12,28 @@ Load the template tags.
 
    {% load pygmentify_tags %}
 
-Use the ``{% filter pygmentify %}`` template tag to covert HTML into Pygments HTML.
+Use the ``{% pygmentify %}`` template tag to covert HTML into Pygments HTML.
 
 .. code-block:: django
 
-   {% filter pygmentify %}
-   <pre class="python"><code>
+   {% pygmentify %}
+   <pre class="python">
    print('Hello, world!')
-   </code></pre>
-   {% endfilter %}
+   </pre>
+   {% endpygmentify %}
 
 Result:
 
 .. code-block:: html
 
-   <div class="highlight"><pre class="python"><code><span></span><span class="k">print</span><span class="p">(</span><span class="s2">&quot;Hello, world!&quot;</span><span class="p">)</span>
-   </code></pre></div>
+   <div class="highlight"><pre class="python"><span></span><span class="k">print</span><span class="p">(</span><span class="s2">&quot;Hello, world!&quot;</span><span class="p">)</span>
+   </pre></div>
 
-The ``{% filter pygmentify %}`` template tag expects an opening ``<pre>`` tag with a ``class`` attribute of the programming language that you are using. For example, ``<pre class="python">`` uses `Python <http://pygments.org/docs/lexers/#pygments.lexers.python.PythonLexer>`_, and ``<pre class="html">`` uses `HTML <http://pygments.org/docs/lexers/#pygments.lexers.html.HtmlLexer>`_.
+The ``{% pygmentify %}`` template tag expects an opening ``<pre>`` tag with a ``class`` attribute of the programming language that you are using that matches against the `short name of the corresponding Pygment lexer <http://pygments.org/docs/lexers/>`_. For example, ``<pre class="python">`` uses the `Python <http://pygments.org/docs/lexers/#pygments.lexers.python.PythonLexer>`_ lexer, and ``<pre class="html">`` uses the `HTML <http://pygments.org/docs/lexers/#pygments.lexers.html.HtmlLexer>`_ lexer to highlight code.
 
-If no CSS class is specified, the template tag makes a `best guess <http://pygments.org/docs/api/#pygments.lexers.guess_lexer>`_ using heuristics of the code inside of the ``<pre>`` element. If multiple CSS classes are specified, the first one is selected. The template tag also strips a possible ``language-`` prefix that could be prepended to the first class.
+If no CSS class is present, the template tag makes a `best guess <http://pygments.org/docs/api/#pygments.lexers.guess_lexer>`_ using heuristics of the code between the ``<pre>`` tags. If multiple CSS classes are present, the classes are collected into a list and are iterated against `all available lexers <http://pygments.org/docs/lexers/>`_.
 
-Pygments's default behavior strips your customized ``<pre class="...">`` tag and replaces it with a plain ``<pre>`` tag. The template tag undoes this unacceptable behavior and preserves the customized ``<pre class="...">`` tag. Additionally, the inner contents of the ``<pre class="...">`` are wrapped in a semantic ``<code>`` element if no ``code`` tags are present.
+Pygments's default behavior strips your customized ``<pre class="...">`` tag and replaces it with a plain ``<pre>`` tag. The template tag undoes this behavior and preserves the customized ``<pre class="...">`` tag.
 
 Consult the `Pygments documentation <http://pygments.org/docs/lexers/>`_ for all language short names. There's even a `Django <http://pygments.org/docs/lexers/#pygments.lexers.templates.DjangoLexer>`_ template one.
 
@@ -68,10 +68,14 @@ The way that Pygments generates CSS is awkward. Rather than provide CSS files, P
 
    $ cleancss <style>.css -o <style>.min.css
 
+The default output of the style file is the minified version.
+
 Please remember to put the ``<link>`` tag in the ``<head>`` of your document.
 
-Examples
-========
+Minimalist example
+==================
+
+The bare minimum to highlight your code is to use the ``{% pygmentify %}`` tag and to load a corresponding style with the ``{% pygmentify_css %}`` tag.
 
 .. code-block:: django
 
@@ -79,13 +83,20 @@ Examples
 
    <link rel="stylesheet" href="{% pygmentify_css %}">
 
-   {% filter pygmentify %}
-   <pre class="python"><code>
+   {% pygmentify %}
+   <pre class="python">
    print('Hello, world!')
-   </code></pre>
-   {% endfilter %}
+   </pre>
+   {% endpygmentify %}
 
-Customize the behavior by passing the name of a style into the ``{% pygmentify_css %}`` tag and into the ``{% filter pygmentify %}`` filter.
+The ``default.min.css`` style file will be used.
+
+Please ensure that the code to highlight contains HTML either natively or by conversion (by, say `Markdown <https://pythonhosted.org/Markdown/>`_) because the template tag will look for fully rendered HTML.
+
+Customize with positional arguments
+===================================
+
+Customize the behavior by passing the name of a style as a positional argument into the ``{% pygmentify_css %}`` and ``{% pygmentify %}`` tags.
 
 .. code-block:: django
 
@@ -93,22 +104,60 @@ Customize the behavior by passing the name of a style into the ``{% pygmentify_c
 
    <link rel="stylesheet" href="{% pygmentify_css 'monokai' %}">
 
-   {% filter pygmentify:'monokai' %}
-   <pre class="python"><code>
+   {% pygmentify 'monokai' %}
+   <pre class="python">
    print('Hello, world!')
-   </code></pre>
-   {% endfilter %}
+   </pre>
+   {% endpygmentify %}
 
-Additionally customize the CSS class of the ``<div>`` that wraps the highlighted code by passing a second positional argument to ``{% filter pygmentify %}``.
+The name of a style is the only possible positional argument available to ``{% pygmentify_css %}`` and ``{% pygmentify %}``.
+
+The ``monokai.min.css`` style file will be used.
+
+If you customize the style, please ensure you pass the same argument, e.g. ``'monokai'``, to *both* the ``{% pygmentify_css %}`` and ``{% pygmentify %}`` tags. You might see unexpected behavior otherwise because "`not all lexers might support every style <http://pygments.org/docs/styles/>`_," meaning styles are guaranteed to work fully only when the lexer assigns to tokens HTML classes that correspond to the class selectors in the CSS file. Therefore, you're probably better off customizing the style by changing the :ref:`settings` of the project. Template tag arguments take precedence over settings. Also see :ref:`settings` for creating your own styles.
+
+Customize with keyword arguments
+================================
+
+The ``{% pygmentify_css %}` tag accepts ``style`` and ``minify`` as keyword arguments.
 
 .. code-block:: django
 
-   {% filter pygmentify:'monokai,bettercssclass' %}
-   <pre class="python"><code>
+   {% pygmentify_css style='monokai' minify='false' %}
+
+The ``monokai.css`` style file will be used in this example. Note that because Django's template language is not Python, the ``{% pygmentify_css %}`` "keyword arguments" are expected to be strings. Therefore, most notably, use ``'true'`` or ``'false'`` for the ``minify`` keyword argument. You will probably want the minified file, so use ``'true'``--or even better omit the keyword argument all together because the default style file to use is the minified file.
+
+Therefore:
+
+.. code-block:: django
+
+   {% pygmentify_css style='default' minify='true' %}
+
+is equivalent to...
+
+.. code-block:: django
+
+   {% pygmentify_css 'default' %}
+
+which is also equivalent to...
+
+.. code-block:: django
+
+   {% pygmentify_css %}
+
+The ``{% pygmentify %}` tag accepts all available options of Pygments's |htmlformatter| class, such as ``style`` and ``linenos``, as keyword arguments.
+
+.. code-block:: django
+
+   {% pygmentify style='monokai' cssclass='bettercssclass' linenos='true' linenostart=0 %}
+   <pre class="python">
    print('Hello, world!')
-   </code></pre>
-   {% endfilter %}
+   </pre>
+   {% endpygmentify %}
 
-If you customize the style, please ensure you pass the same argument, e.g. ``'monokai'``, to *both* the ``{% pygmentify_css %}`` and ``{% filter pygmentify %}`` tags. You might see unexpected behavior otherwise because "`not all lexers might support every style <http://pygments.org/docs/styles/>`_," meaning styles are guaranteed to work fully only when the lexer assigns to tokens HTML classes that correspond to the class selectors in the CSS file. Therefore, you're probably better off customizing the style by changing the :ref:`settings` of the project. Template tag arguments take precedence over settings. Also see :ref:`settings` for creating your own styles.
+Again, because Django's template language is not Python, template tags expect either a string or a number as a keyword argument. Therefore, in instances when Pygments's ``HtmlFormatter`` constructor expects a Python data type, such as a string, number, boolean, or list, the value of the keyword argument should be the equivalent string or number. For example, pass ``'true'`` as the equivalent of ``True`` or ``'[...]'`` as the equivalent of ``[...]``. Numbers can be left as is. All keyword arguments are later coerced into Python data types.
 
-If you use the `pipe syntax <https://docs.djangoproject.com/en/1.10/ref/templates/language/#filters>`_, e.g. ``{{ post.body|pygmentify }}``, ensure that the variable contains HTML either natively or by conversion (by, say `Markdown <https://pythonhosted.org/Markdown/>`_) because the template tag will look for the HTML outlined earlier.
+Please see Pygments's documentation for |htmlformatter| all available keyword arguments.
+
+.. |htmlformatter| replace:: ``HtmlFormatter``
+.. _htmlformatter: http://pygments.org/docs/formatters/#HtmlFormatter

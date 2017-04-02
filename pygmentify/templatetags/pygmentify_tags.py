@@ -2,65 +2,63 @@ from __future__ import unicode_literals
 
 from django import template
 from django.contrib.staticfiles.storage import staticfiles_storage
-from django.template import TemplateSyntaxError
-from django.utils.encoding import force_text
-from django.utils.html import escape
 
-from bs4 import BeautifulSoup
-from pygments import highlight
-from pygments.formatters import HtmlFormatter
-from pygments.lexers import get_lexer_by_name, guess_lexer
-from pygments.util import ClassNotFound
-
+from ..utils.pygmentify import bits_to_dict, pygmentify as _pygmentify
 from .. import settings
 
 register = template.Library()
 
 
-@register.simple_tag
-def pygmentify_css(*args):
-    """Return the URL of the Pygments CSS file with optional theme."""
-    if len(args) > 1:
-        raise TemplateSyntaxError('"pygmentify_css" tag takes exactly zero or one arguments.')
-    arg = args[0] if args else settings.PYGMENTIFY_STYLE
-    return staticfiles_storage.url('pygmentify/css/%s.min.css' % arg)
+class PygmentifyCssNode(template.Node):
+    def __init__(self, **kwargs):
+        self.css_options = kwargs['css_options']
+
+    def render(self, context):
+        style = self.css_options['style']
+        path = '.min' if self.css_options['minify'] else ''
+        return staticfiles_storage.url('pygmentify/css/%s%s.css' % (style, path))
 
 
-@register.filter
-def pygmentify(value, arg=''):
-    """Return a highlighted code block with Pygments."""
-    args_list = [a for a in arg.split(',') if a]
+@register.tag
+def pygmentify_css(parser, token):
+    bits = token.split_contents()
+    remaining_bits = bits[1:]
+    css_options = bits_to_dict(remaining_bits)
 
-    # Get style
-    try:
-        style = args_list[0]
-    except IndexError:
-        style = settings.PYGMENTIFY_STYLE
+    # Get default settings if necessary
+    if 'style' not in css_options:
+        css_options['style'] = settings.PYGMENTIFY_STYLE
+    # Get minify status
+    if 'minify' not in css_options:
+        css_options['minify'] = True
+    if not isinstance(css_options['minify'], bool):
+        raise template.TemplateSyntaxError('%r tag\'s "minify" keyword argument should be "true", "false", or omitted.' % bits[:1])
 
-    # Get cssclass
-    try:
-        cssclass = args_list[1]
-    except IndexError:
-        cssclass = settings.PYGMENTIFY_CSSCLASS
+    return PygmentifyCssNode(css_options=css_options)
 
-    soup = BeautifulSoup(value, 'html.parser')
-    for pre in soup.find_all('pre'):
-        try:
-            language = pre['class'][0].replace('language-', '', 1)
-            try:
-                lexer = get_lexer_by_name(language, stripall=True)
-            except ClassNotFound:
-                lexer = guess_lexer(pre, stripall=True)
-        except IndexError:
-            lexer = guess_lexer(pre, stripall=True)
-        formatter = HtmlFormatter(style=style, cssclass=cssclass)
-        pygments_soup = BeautifulSoup(highlight(pre.string, lexer, formatter), 'html.parser')
-        pre.clear()
-        pre.append(soup.new_tag('code'))
-        for content in reversed(pygments_soup.pre.contents):
-            if content.string is not None:
-                content.string.replace_with(escape(content.string))
-            pre.code.insert(0, content)
-        pre.wrap(soup.new_tag('div', **{'class': cssclass}))
 
-    return force_text(soup.encode(formatter=None))
+class PygmentifyNode(template.Node):
+    def __init__(self, nodelist, **kwargs):
+        self.nodelist = nodelist
+        self.html_options = kwargs['html_options']
+
+    def render(self, context):
+        output = self.nodelist.render(context)
+        return _pygmentify(output, html_options=self.html_options)
+
+
+@register.tag
+def pygmentify(parser, token):
+    bits = token.split_contents()
+    remaining_bits = bits[1:]
+    html_options = bits_to_dict(remaining_bits)
+
+    # Get default settings if necessary
+    if 'style' not in html_options:
+        html_options['style'] = settings.PYGMENTIFY_STYLE
+    if 'cssclass' not in html_options:
+        html_options['cssclass'] = settings.PYGMENTIFY_CSSCLASS
+
+    nodelist = parser.parse(('endpygmentify',))
+    parser.delete_first_token()
+    return PygmentifyNode(nodelist, html_options=html_options)
