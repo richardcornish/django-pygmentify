@@ -119,7 +119,7 @@ If you customize the style, please ensure you pass the same argument, e.g. ``'mo
 Customize with keyword arguments
 ================================
 
-The ``{% pygmentify_css %}` tag accepts ``style`` and ``minify`` as keyword arguments.
+The ``{% pygmentify_css %}`` tag accepts ``style`` and ``minify`` as keyword arguments.
 
 .. code-block:: django
 
@@ -145,7 +145,7 @@ which is also equivalent to...
 
    {% pygmentify_css %}
 
-The ``{% pygmentify %}` tag accepts all available options of Pygments's |htmlformatter| class, such as ``style`` and ``linenos``, as keyword arguments.
+The ``{% pygmentify %}`` tag accepts all available options of Pygments's |htmlformatter| class, such as ``style`` and ``linenos``, as keyword arguments.
 
 .. code-block:: django
 
@@ -157,7 +157,7 @@ The ``{% pygmentify %}` tag accepts all available options of Pygments's |htmlfor
 
 Again, because Django's template language is not Python, template tags expect either a string or a number as a keyword argument. Therefore, in instances when Pygments's ``HtmlFormatter`` constructor expects a Python data type, such as a string, number, boolean, or list, the value of the keyword argument should be the equivalent string or number. For example, pass ``'true'`` as the equivalent of ``True`` or ``'[...]'`` as the equivalent of ``[...]``. Numbers can be left as is. All keyword arguments are later coerced into Python data types.
 
-Please see Pygments's documentation for |htmlformatter| all available keyword arguments.
+Please see Pygments's documentation on the |htmlformatter| class for all available keyword arguments.
 
 .. |htmlformatter| replace:: ``HtmlFormatter``
 .. _htmlformatter: http://pygments.org/docs/formatters/#HtmlFormatter
