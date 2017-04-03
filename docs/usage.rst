@@ -121,7 +121,7 @@ Customize with keyword arguments
 
 Additionally customize the behavior of the ``{% pygmentify_css %}`` and ``{% pygmentify %}`` tags with keyword arguments.
 
-The ``{% pygmentify_css %}` can accept the ``style`` and ``minify`` keyword arguments.
+The ``{% pygmentify_css %}`` can accept the ``style`` and ``minify`` keyword arguments.
 
 .. code-block:: django
 
