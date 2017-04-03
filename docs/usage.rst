@@ -35,7 +35,7 @@ If no CSS class is present, the template tag makes a `best guess <http://pygment
 
 Pygments's default behavior strips your customized ``<pre class="...">`` tag and replaces it with a plain ``<pre>`` tag. The template tag undoes this behavior and preserves the customized ``<pre class="...">`` tag.
 
-Consult the `Pygments documentation <http://pygments.org/docs/lexers/>`_ for all language short names. There's even a `Django <http://pygments.org/docs/lexers/#pygments.lexers.templates.DjangoLexer>`_ template one.
+See the `Pygments documentation <http://pygments.org/docs/lexers/>`_ for all language short names. There's even a `Django <http://pygments.org/docs/lexers/#pygments.lexers.templates.DjangoLexer>`_ template one.
 
 CSS
 ===
@@ -52,6 +52,8 @@ Result:
 
    <link rel="stylesheet" href="/static/pygmentify/css/default.min.css">
 
+The default output of the style file is the minified version.
+
 The way that Pygments generates CSS is awkward. Rather than provide CSS files, Pygments abstracts a more generalized style language into `Python classes to create styles <http://pygments.org/docs/styles/>`_ that can be used with formatters other than HTML. Therefore, the template tag provides exports of the default styles using the |pygmentize|_ command and |cleancss|_ library.
 
 .. |pygmentize| replace:: ``pygmentize``
@@ -67,8 +69,6 @@ The way that Pygments generates CSS is awkward. Rather than provide CSS files, P
 .. code-block:: bash
 
    $ cleancss <style>.css -o <style>.min.css
-
-The default output of the style file is the minified version.
 
 Please remember to put the ``<link>`` tag in the ``<head>`` of your document.
 
@@ -89,14 +89,14 @@ The bare minimum to highlight your code is to use the ``{% pygmentify %}`` tag a
    </pre>
    {% endpygmentify %}
 
-The ``default.min.css`` style file will be used.
+The ``default.min.css`` style file will be used in this example.
 
 Please ensure that the code to highlight contains HTML either natively or by conversion (by, say `Markdown <https://pythonhosted.org/Markdown/>`_) because the template tag will look for fully rendered HTML.
 
 Customize with positional arguments
 ===================================
 
-Customize the behavior by passing the name of a style as a positional argument into the ``{% pygmentify_css %}`` and ``{% pygmentify %}`` tags.
+Customize the behavior of the ``{% pygmentify_css %}`` and ``{% pygmentify %}`` tags by passing the name of a style as a positional argument.
 
 .. code-block:: django
 
@@ -110,22 +110,26 @@ Customize the behavior by passing the name of a style as a positional argument i
    </pre>
    {% endpygmentify %}
 
-The name of a style is the only possible positional argument available to ``{% pygmentify_css %}`` and ``{% pygmentify %}``.
+The ``monokai.min.css`` style file will be used in this example.
 
-The ``monokai.min.css`` style file will be used.
+The name of a style is the only possible positional argument available to ``{% pygmentify_css %}`` and ``{% pygmentify %}``.
 
 If you customize the style, please ensure you pass the same argument, e.g. ``'monokai'``, to *both* the ``{% pygmentify_css %}`` and ``{% pygmentify %}`` tags. You might see unexpected behavior otherwise because "`not all lexers might support every style <http://pygments.org/docs/styles/>`_," meaning styles are guaranteed to work fully only when the lexer assigns to tokens HTML classes that correspond to the class selectors in the CSS file. Therefore, you're probably better off customizing the style by changing the :ref:`settings` of the project. Template tag arguments take precedence over settings. Also see :ref:`settings` for creating your own styles.
 
 Customize with keyword arguments
 ================================
 
-The ``{% pygmentify_css %}`` tag accepts ``style`` and ``minify`` as keyword arguments.
+Additionally customize the behavior of the ``{% pygmentify_css %}`` and ``{% pygmentify %}`` tags with keyword arguments.
+
+The ``{% pygmentify_css %}` can accept the ``style`` and ``minify`` keyword arguments.
 
 .. code-block:: django
 
    {% pygmentify_css style='monokai' minify='false' %}
 
-The ``monokai.css`` style file will be used in this example. Note that because Django's template language is not Python, the ``{% pygmentify_css %}`` "keyword arguments" are expected to be strings. Therefore, most notably, use ``'true'`` or ``'false'`` for the ``minify`` keyword argument. You will probably want the minified file, so use ``'true'``--or even better omit the keyword argument all together because the default style file to use is the minified file.
+The ``monokai.css`` style file will be used in this example.
+
+Note that because Django's template language is not Python, the ``{% pygmentify_css %}`` "keyword arguments" are expected to be strings. Therefore, most notably, use ``'true'`` or ``'false'`` for the ``minify`` keyword argument. You will probably want the minified file, so use ``'true'``--or even better omit the keyword argument all together because the default style file to use is the minified file.
 
 Therefore:
 
@@ -145,7 +149,7 @@ which is also equivalent to...
 
    {% pygmentify_css %}
 
-The ``{% pygmentify %}`` tag accepts all available options of Pygments's |htmlformatter| class, such as ``style`` and ``linenos``, as keyword arguments.
+Additionally, the ``{% pygmentify %}`` tag accepts all available options of Pygments's ``HtmlFormatter`` class, such as ``style`` and ``linenos``, as keyword arguments.
 
 .. code-block:: django
 
@@ -157,7 +161,4 @@ The ``{% pygmentify %}`` tag accepts all available options of Pygments's |htmlfo
 
 Again, because Django's template language is not Python, template tags expect either a string or a number as a keyword argument. Therefore, in instances when Pygments's ``HtmlFormatter`` constructor expects a Python data type, such as a string, number, boolean, or list, the value of the keyword argument should be the equivalent string or number. For example, pass ``'true'`` as the equivalent of ``True`` or ``'[...]'`` as the equivalent of ``[...]``. Numbers can be left as is. All keyword arguments are later coerced into Python data types.
 
-Please see Pygments's documentation on the |htmlformatter| class for all available keyword arguments.
-
-.. |htmlformatter| replace:: ``HtmlFormatter``
-.. _htmlformatter: http://pygments.org/docs/formatters/#HtmlFormatter
+See `Pygments's documentation <http://pygments.org/docs/formatters/#HtmlFormatter>`_ on the ``HtmlFormatter`` class for all available keyword arguments.
