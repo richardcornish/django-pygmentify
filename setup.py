@@ -5,7 +5,7 @@ from setuptools import find_packages, setup
 
 setup(
     name='django-pygmentify',
-    version='0.2.4',
+    version='0.3.0',
     description='A Django template filter application to highlight code with Pygments',
     long_description=open(os.path.join(os.path.dirname(__file__), 'README.rst')).read(),
     author='Richard Cornish',
