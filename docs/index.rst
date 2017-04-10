@@ -16,7 +16,7 @@ Django Pygmentify
 
 .. image:: _static/img/screenshot.png
 
-**Django Pygmentify** is a `Django template tag <https://docs.djangoproject.com/en/1.10/howto/custom-template-tags/>`_ application to highlight code with `Pygments <http://pygments.org/>`_.
+**Django Pygmentify** is a `Django <https://www.djangoproject.com/>`_ `template tag <https://docs.djangoproject.com/en/1.11/howto/custom-template-tags/>`_ application to highlight code with `Pygments <http://pygments.org/>`_.
 
 It is an alternative to `Django Pygments <https://github.com/od-eon/django-pygments>`_, which hasn't been updated in several years.
 
