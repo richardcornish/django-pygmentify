@@ -16,7 +16,6 @@ class PygmentifyTestCase(TestCase):
             "</pre>"
             "{% endpygmentify %}"
         ).render(Context())
-        print(out)
         self.assertEqual(out, '<div class="highlight"><pre class="html"><span></span><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Hello, world!<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>\n</pre></div>')
 
     def test_pygmentify_html_kwarg(self):
