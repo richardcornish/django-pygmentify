@@ -31,7 +31,9 @@ def bits_to_dict(bits):
 
     # Coerce strings of types to Python types
     for key in options:
-        options[key] = ast.literal_eval(options[key].strip("'"))
+        if options[key] == "'true'" or options[key] == "'false'":
+            options[key] = options[key].title()
+        options[key] = ast.literal_eval(options[key])
 
     return options
 
