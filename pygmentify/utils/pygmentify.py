@@ -29,25 +29,9 @@ def bits_to_dict(bits):
     # Create dictionary by splitting on equal signs
     options = dict(bit.split('=') for bit in cleaned_bits)
 
+    # Coerce strings of types to Python types
     for key in options:
-
-        # Coerce string of number to number (templates don't quote numbers)
-        if options[key].isdigit():
-            options[key] = int(options[key])
-
-        # Coerce string of string of boolean to boolean
-        elif options[key].lower() == "'true'":
-            options[key] = True
-        elif options[key].lower() == "'false'":
-            options[key] = False
-
-        # Coerce string of string of list to list
-        elif options[key].startswith("'[") and options[key].endswith("]'"):
-            options[key] = ast.literal_eval(options[key].strip("'"))
-
-        # Coerce string of string to string
-        elif options[key].startswith("'") and options[key].endswith("'"):
-            options[key] = options[key].strip("'")
+        options[key] = ast.literal_eval(options[key].strip("'"))
 
     return options
 
