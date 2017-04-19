@@ -21,13 +21,24 @@ class PygmentifyTestCase(TestCase):
     def test_pygmentify_html_kwarg(self):
         out = Template(
             "{% load pygmentify_tags %}"
-            "{% pygmentify linenos='true' %}"
+            "{% pygmentify linenos='True' %}"
             '<pre class="html">'
             '<p>Hello, world!</p>'
             "</pre>"
             "{% endpygmentify %}"
         ).render(Context())
         self.assertEqual(out, '<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre class="html"><span></span><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Hello, world!<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>\n</pre></div>\n</td></tr></table>')
+
+    def test_pygmentify_html_kwargs(self):
+        out = Template(
+            "{% load pygmentify_tags %}"
+            "{% pygmentify linenos='True' linenostart=0 %}"
+            '<pre class="html">'
+            '<p>Hello, world!</p>'
+            "</pre>"
+            "{% endpygmentify %}"
+        ).render(Context())
+        self.assertEqual(out, '<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>0</pre></div></td><td class="code"><div class="highlight"><pre class="html"><span></span><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Hello, world!<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>\n</pre></div>\n</td></tr></table>')
 
     def test_pygmentify_python(self):
         out = Template(
