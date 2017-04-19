@@ -19,10 +19,7 @@ def bits_to_dict(bits):
       to: {'style': 'monokai', 'cssclass': 'cssclass', 'boolean': True, 'num': 0, 'list': [],}
     """
     # Strip any trailing commas
-    commaless_bits = [bit[:-1] if bit.endswith(',') else bit for bit in bits]
-
-    # Append 'style=' to any positional arg to create a keyword arg
-    cleaned_bits = ['style=' + bit if '=' not in bit else bit for bit in commaless_bits]
+    cleaned_bits = [bit[:-1] if bit.endswith(',') else bit for bit in bits]
 
     # Create dictionary by splitting on equal signs
     options = dict(bit.split('=') for bit in cleaned_bits)
@@ -76,15 +73,15 @@ def pygmentify(value, **kwargs):
             lexer = guess_lexer(pre, stripall=True)
 
         # Get formatter
-        html_options = kwargs.get('html_options', {})
-        formatter = HtmlFormatter(**html_options)
+        options = kwargs.get('options', {})
+        formatter = HtmlFormatter(**options)
 
         # Highlight code
         highlighted = highlight(code, lexer, formatter)
         class_string = ' '.join([_class for _class in class_list])
         highlighted = highlighted.replace(
-            '<div class="%s"><pre>' % html_options['cssclass'],
-            '<div class="%s"><pre class="%s">' % (html_options['cssclass'], class_string)
+            '<div class="%s"><pre>' % options['cssclass'],
+            '<div class="%s"><pre class="%s">' % (options['cssclass'], class_string)
         )
         pre.replace_with(highlighted)
 
