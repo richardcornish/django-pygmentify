@@ -2,8 +2,6 @@ from __future__ import unicode_literals
 
 import ast
 
-from django.utils.encoding import force_text
-
 from bs4 import BeautifulSoup
 from pygments import highlight
 from pygments.formatters import HtmlFormatter
@@ -90,4 +88,4 @@ def pygmentify(value, **kwargs):
         )
         pre.replace_with(highlighted)
 
-    return force_text(soup.encode(formatter=None).strip())
+    return soup.encode(formatter=None).strip()
