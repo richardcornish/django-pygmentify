@@ -2,7 +2,6 @@ from __future__ import unicode_literals
 
 import ast
 
-from django import template
 from django.utils.encoding import force_text
 
 from bs4 import BeautifulSoup
@@ -10,8 +9,6 @@ from pygments import highlight
 from pygments.formatters import HtmlFormatter
 from pygments.lexers import get_all_lexers, get_lexer_by_name, guess_lexer
 from pygments.util import ClassNotFound
-
-register = template.Library()
 
 
 def bits_to_dict(bits):
