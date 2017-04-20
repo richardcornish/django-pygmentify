@@ -12,7 +12,7 @@ Load the template tags.
 
    {% load pygmentify_tags %}
 
-Use the ``{% pygmentify %}`` template tag to covert HTML into Pygments HTML.
+Use the ``{% pygmentify %}`` template tag to convert HTML into Pygments HTML.
 
 .. code-block:: django
 
