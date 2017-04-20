@@ -3,23 +3,26 @@
 Settings
 ********
 
-The template tag offers two settings. By default, they are:
+The template tag offers one setting that nests options as a dictionary. By default, it is:
 
 .. code-block:: python
 
-   PYGMENTIFY_CSSCLASS = 'highlight'
+   PYGMENTIFY = {
+       'style': 'default',
+       'cssclass': 'highlight',
+       'minify': True,
+   }
 
-   PYGMENTIFY_STYLE = 'default'
+The keys of the dictionary correspond to the keyword argument options of Pygments's |HtmlFormatterClass|_, which means you're free to use any of the 20+ options. The default options are:
 
-``PYGMENTIFY_CSSCLASS``
-=======================
+.. |HtmlFormatterClass| replace:: ``HtmlFormatterClass``
+.. _HtmlFormatterClass: http://pygments.org/docs/formatters/#HtmlFormatter
 
-A string of the `CSS class <http://pygments.org/docs/formatters/#HtmlFormatter>`_ of the ``<div>`` element that wraps the highlighted code.
+* ``style`` is a string indicating the `Pygments style class <http://pygments.org/docs/styles/>`_ to use.
+* ``cssclass`` is a string indicating the class of the ``<div>`` element that wraps the highlighted code.
+* ``minify`` is a boolean indicating the serving of a minified CSS file. It does not have an equivalent in the Pygments's ``HtmlFormatterClass`` and is unique to Pygmentify.
 
-``PYGMENTIFY_STYLE``
-====================
-
-A string of the `Pygments style class <http://pygments.org/docs/styles/>`_ to use. The up-to-date list of styles is in the `Pygments repository <https://bitbucket.org/birkenfeld/pygments-main/src/a042025b350cd9c9461f7385d9ba0f13cdb01bb9/pygments/styles/__init__.py?at=default&fileviewer=file-view-default>`_, but generally speaking, the styles from which to choose are:
+The up-to-date list of styles is in the `Pygments repository <https://bitbucket.org/birkenfeld/pygments-main/src/a042025b350cd9c9461f7385d9ba0f13cdb01bb9/pygments/styles/__init__.py?at=default&fileviewer=file-view-default>`_, but generally speaking, the styles from which to choose are:
 
 * ``algol``
 * ``algol_nu``
@@ -51,8 +54,8 @@ A string of the `Pygments style class <http://pygments.org/docs/styles/>`_ to us
 
 Preview these styles by visiting any of the Pygments `demo entries <http://pygments.org/demo/>`_.
 
-By setting ``PYGMENTIFY_STYLE`` once, the template tag automatically sets the correct Pygments HTML output *and* corresponding CSS to use.
+This setting is also available on a per-template basis, but by setting the value of the ``style`` key of ``PYGMENTIFY`` once, the template tag automatically sets the correct Pygments HTML output *and* corresponding CSS to use. See examples in :ref:`Usage` for details.
 
-Both of these settings are also available on a per-template basis. See examples in :ref:`Usage` for details.
+If you want to `create your own style <http://pygments.org/docs/styles/#creating-own-styles>`_, follow the Pygments documentation by creating a ``Style`` class, registering it as a plugin, and passing its ``name`` attribute to the value of the ``style`` key of the ``PYGMENTIFY`` setting.
 
-If you want to `create your own style <http://pygments.org/docs/styles/#creating-own-styles>`_, follow the Pygments documentation by creating a ``Style`` class, registering it as a plugin, and passing its ``name`` attribute to the ``PYGMENTIFY_STYLE`` setting.
+Previously only two settings, ``PYGMENTIFY_CSSCLASS`` and ``PYGMENTIFY_STYLE``, were offered, corresponding respectively to the ``cssclass`` and ``style`` keys in ``PYGMENTIFY``.
