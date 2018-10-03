@@ -58,7 +58,7 @@ def pygmentify(value, **kwargs):
         lexers = get_all_lexers()
         try:
             class_list = pre['class']
-        except IndexError:
+        except KeyError:
             class_list = []
             lexer = guess_lexer(pre, stripall=True)
         for _class in class_list:
