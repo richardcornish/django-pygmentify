@@ -85,4 +85,4 @@ def pygmentify(value, **kwargs):
         )
         pre.replace_with(highlighted)
 
-    return soup.encode(formatter=None).strip()
+    return soup.decode(formatter=None).strip()
