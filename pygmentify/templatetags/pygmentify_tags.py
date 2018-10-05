@@ -3,8 +3,8 @@ from __future__ import unicode_literals
 from django import template
 from django.contrib.staticfiles.storage import staticfiles_storage
 
-from ..utils.pygmentify import bits_to_dict, pygmentify as _pygmentify
 from .. import settings
+from ..utils.pygmentify import bits_to_dict, pygmentify as _pygmentify
 
 register = template.Library()
 
@@ -22,6 +22,13 @@ class PygmentifyCssNode(template.Node):
 @register.tag
 def pygmentify_css(parser, token):
 
+    # Get settings options
+    options = {
+        'style': settings.PYGMENTIFY_STYLE,
+        'cssclass': settings.PYGMENTIFY_CSSCLASS,
+        'minify': settings.PYGMENTIFY_MINIFY
+    }
+
     # Convert tag kwargs to dictionary
     bits = token.split_contents()
     remaining_bits = bits[1:]
@@ -29,7 +36,6 @@ def pygmentify_css(parser, token):
     tag_options = bits_to_dict(remaining_bits)
 
     # Update settings with tag options
-    options = settings.PYGMENTIFY.copy()
     options.update(tag_options)
 
     return PygmentifyCssNode(options=options)
@@ -38,15 +44,22 @@ def pygmentify_css(parser, token):
 class PygmentifyNode(template.Node):
     def __init__(self, nodelist, **kwargs):
         self.nodelist = nodelist
-        self.options = kwargs['options']
+        self.options = kwargs
 
     def render(self, context):
         output = self.nodelist.render(context)
-        return _pygmentify(output, options=self.options)
+        return _pygmentify(output, **self.options)
 
 
 @register.tag
 def pygmentify(parser, token):
+
+    # Get settings options
+    options = {
+        'style': settings.PYGMENTIFY_STYLE,
+        'cssclass': settings.PYGMENTIFY_CSSCLASS,
+        'minify': settings.PYGMENTIFY_MINIFY
+    }
 
     # Convert tag kwargs to dictionary
     bits = token.split_contents()
@@ -55,9 +68,8 @@ def pygmentify(parser, token):
     tag_options = bits_to_dict(remaining_bits)
 
     # Update settings with tag options
-    options = settings.PYGMENTIFY.copy()
     options.update(tag_options)
 
     nodelist = parser.parse(('endpygmentify',))
     parser.delete_first_token()
-    return PygmentifyNode(nodelist, options=options)
+    return PygmentifyNode(nodelist, **options)

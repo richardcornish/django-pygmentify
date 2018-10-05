@@ -85,8 +85,7 @@ def pygmentify(value, **kwargs):
         if lexer is not None:
 
             # Get formatter
-            options = kwargs.get('options', {})
-            formatter = HtmlFormatter(**options)
+            formatter = HtmlFormatter(**kwargs)
 
             # Highlight code
             highlighted = highlight(code, lexer, formatter)

@@ -3,12 +3,8 @@ from __future__ import unicode_literals
 from django.conf import settings
 
 
-PYGMENTIFY = {
-    'style': 'default',
-    'cssclass': 'highlight',
-    'minify': True,
-}
+PYGMENTIFY_STYLE = getattr(settings, 'PYGMENTIFY_STYLE', 'default')
 
-pygmentify_user = getattr(settings, 'PYGMENTIFY', {})
+PYGMENTIFY_CSSCLASS = getattr(settings, 'PYGMENTIFY_CSSCLASS', 'highlight')
 
-PYGMENTIFY.update(pygmentify_user)
+PYGMENTIFY_MINIFY = getattr(settings, 'PYGMENTIFY_MINIFY', True)
