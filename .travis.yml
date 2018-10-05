@@ -1,6 +1,5 @@
 language: python
 python:
-    - "3.7"
     - "3.6"
     - "3.5"
     - "3.4"
@@ -13,7 +12,7 @@ matrix:
   include:
     - python: "3.7"
       dist: xenial
-      sudo: required
+      sudo: true
   exclude:
     - python: "3.4"
       env: DJANGO_VERSION=2.1
