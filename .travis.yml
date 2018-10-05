@@ -1,5 +1,8 @@
 language: python
 python:
+    - "3.7"
+      dist: xenial
+      sudo: true
     - "3.6"
     - "3.5"
     - "3.4"
@@ -9,15 +12,6 @@ env:
     - DJANGO_VERSION=2.0.9
     - DJANGO_VERSION=1.11.16
 matrix:
-  include:
-    - python: "3.7"
-      env: DJANGO_VERSION=2.1
-      dist: xenial
-      sudo: true
-    - python: "3.7"
-      env: DJANGO_VERSION=2.0.9
-      dist: xenial
-      sudo: true
   exclude:
     - python: "3.4"
       env: DJANGO_VERSION=2.1
@@ -25,6 +19,8 @@ matrix:
       env: DJANGO_VERSION=2.1
     - python: "2.7"
       env: DJANGO_VERSION=2.0.9
+    - python: "3.7"
+      env: DJANGO_VERSION=1.11.16
 before_install:
     - export DJANGO_SETTINGS_MODULE="pygmentify.tests.settings"
 install:
