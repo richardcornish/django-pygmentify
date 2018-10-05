@@ -1,4 +1,6 @@
 language: python
+sudo: required  # 3.7 fix
+dist: xenial  # 3.7 fix
 python:
     - "3.7"
     - "3.6"
