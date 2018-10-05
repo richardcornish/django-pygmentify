@@ -91,8 +91,8 @@ def pygmentify(value, **kwargs):
             highlighted = highlight(code, lexer, formatter)
             class_string = ' '.join([c for c in class_list])
             highlighted = highlighted.replace(
-                '<div class="%s"><pre>' % options['cssclass'],
-                '<div class="%s"><pre class="%s">' % (options['cssclass'], class_string)
+                '<div class="%s"><pre>' % kwargs['cssclass'],
+                '<div class="%s"><pre class="%s">' % (kwargs['cssclass'], class_string)
             )
             pre.replace_with(highlighted)
 
