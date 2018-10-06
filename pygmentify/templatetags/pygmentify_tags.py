@@ -11,23 +11,16 @@ register = template.Library()
 
 class PygmentifyCssNode(template.Node):
     def __init__(self, **kwargs):
-        self.options = kwargs['options']
+        self.options = kwargs
 
     def render(self, context):
         style = self.options['style']
-        path = '.min' if self.options['minify'] else ''
+        path = '.min' if settings.PYGMENTIFY_MINIFY == True else ''
         return staticfiles_storage.url('pygmentify/css/%s%s.css' % (style, path))
 
 
 @register.tag
 def pygmentify_css(parser, token):
-
-    # Get settings options
-    options = {
-        'style': settings.PYGMENTIFY_STYLE,
-        'cssclass': settings.PYGMENTIFY_CSSCLASS,
-        'minify': settings.PYGMENTIFY_MINIFY
-    }
 
     # Convert tag kwargs to dictionary
     bits = token.split_contents()
@@ -36,9 +29,9 @@ def pygmentify_css(parser, token):
     tag_options = bits_to_dict(remaining_bits)
 
     # Update settings with tag options
-    options.update(tag_options)
+    settings.PYGMENTIFY.update(tag_options)
 
-    return PygmentifyCssNode(options=options)
+    return PygmentifyCssNode(**settings.PYGMENTIFY)
 
 
 class PygmentifyNode(template.Node):
@@ -54,13 +47,6 @@ class PygmentifyNode(template.Node):
 @register.tag
 def pygmentify(parser, token):
 
-    # Get settings options
-    options = {
-        'style': settings.PYGMENTIFY_STYLE,
-        'cssclass': settings.PYGMENTIFY_CSSCLASS,
-        'minify': settings.PYGMENTIFY_MINIFY
-    }
-
     # Convert tag kwargs to dictionary
     bits = token.split_contents()
     remaining_bits = bits[1:]
@@ -68,8 +54,8 @@ def pygmentify(parser, token):
     tag_options = bits_to_dict(remaining_bits)
 
     # Update settings with tag options
-    options.update(tag_options)
+    settings.PYGMENTIFY.update(tag_options)
 
     nodelist = parser.parse(('endpygmentify',))
     parser.delete_first_token()
-    return PygmentifyNode(nodelist, **options)
+    return PygmentifyNode(nodelist, **settings.PYGMENTIFY)
