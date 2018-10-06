@@ -8,4 +8,8 @@ PYGMENTIFY = {
     'cssclass': 'highlight'
 }
 
+pygmentify_user = getattr(settings, 'PYGMENTIFY', {})
+
+PYGMENTIFY.update(pygmentify_user)
+
 PYGMENTIFY_MINIFY = getattr(settings, 'PYGMENTIFY_MINIFY', True)
