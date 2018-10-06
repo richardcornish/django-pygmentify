@@ -61,8 +61,3 @@ Result:
 
    <div class="highlight"><pre class="python"><span></span><span class="k">print</span><span class="p">(</span><span class="s2">&quot;Hello, world!&quot;</span><span class="p">)</span>
    </pre></div>
-
-Upgrading
-=========
-
-The syntax of the template tags `changed <https://github.com/richardcornish/django-pygmentify/commit/0e73db8f220304f9c496b7d43c2e1586bbaf59eb>`_ in version 0.3.0 from a template filter, ``{% filter pygmentify %}``, to a more robust template tag, ``{% pygmentify %}``. Consult the `usage documentation <https://django-pygmentify.readthedocs.io/en/latest/usage.html>`_ for instructions.
