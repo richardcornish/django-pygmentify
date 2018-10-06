@@ -29,9 +29,10 @@ def pygmentify_css(parser, token):
     tag_options = bits_to_dict(remaining_bits)
 
     # Update settings with tag options
-    settings.PYGMENTIFY.update(tag_options)
+    options = settings.PYGMENTIFY.copy()
+    options.update(tag_options)
 
-    return PygmentifyCssNode(**settings.PYGMENTIFY)
+    return PygmentifyCssNode(**options)
 
 
 class PygmentifyNode(template.Node):
@@ -54,8 +55,9 @@ def pygmentify(parser, token):
     tag_options = bits_to_dict(remaining_bits)
 
     # Update settings with tag options
-    settings.PYGMENTIFY.update(tag_options)
+    options = settings.PYGMENTIFY.copy()
+    options.update(tag_options)
 
     nodelist = parser.parse(('endpygmentify',))
     parser.delete_first_token()
-    return PygmentifyNode(nodelist, **settings.PYGMENTIFY)
+    return PygmentifyNode(nodelist, **options)
