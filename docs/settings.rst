@@ -25,7 +25,7 @@ A dictionary corresponding to the keyword argument options of Pygments's |HtmlFo
 * ``style`` is a string indicating the `Pygments style class <http://pygments.org/docs/styles/>`_ to use.
 * ``cssclass`` is a string indicating the class of the ``<div>`` element that wraps the highlighted code.
 
-The up-to-date list of styles is in the `Pygments repository <https://bitbucket.org/birkenfeld/pygments-main/src/a042025b350cd9c9461f7385d9ba0f13cdb01bb9/pygments/styles/__init__.py?at=default&fileviewer=file-view-default>`_, but generally speaking, the styles from which to choose are:
+The up-to-date list of styles is in the `Pygments repository <https://bitbucket.org/birkenfeld/pygments-main/src/7941677dc77d4f2bf0bbd6140ade85a9454b8b80/pygments/styles/?at=default>`_, but generally speaking, the styles from which to choose are:
 
 * ``algol``
 * ``algol_nu``
